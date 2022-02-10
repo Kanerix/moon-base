@@ -5,7 +5,7 @@ export default function Topnav() {
 	const location = useLocation()
 
 	return (
-		<nav className='px-8 bg-slate-800 flex space-x-4 items-center border-b-2'>
+		<nav className='px-8 bg-slate-800 flex space-x-1 items-center border-b-2'>
 			<Link
 				to='/'
 				className='text-2xl text-slate-50 font-semibold whitespace-nowrap'

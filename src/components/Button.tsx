@@ -11,8 +11,11 @@ interface ButtonProps {
 export default function Button(props: ButtonProps) {
 	return (
 		<Link
-			className={`px-3 py-2 rounded-lg font-medium text-base text-slate-200 hover:bg-slate-900 
-			${props.selected ? 'bg-slate-900' : ''} ${props.className}`}
+			className={`px-3 py-2 
+			rounded-lg font-medium text-base 
+			text-slate-200
+			hover:bg-slate-900 hover:text-blue-400
+			${props.className}`}
 			to={props.to}
 		>
 			{props.children}
