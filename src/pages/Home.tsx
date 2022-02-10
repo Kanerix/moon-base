@@ -1,40 +1,69 @@
 import { useEffect } from 'react'
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default function Home() {
 	useEffect(() => {
+		const canvas = document.querySelector('canvas#webgl')
+
 		const scene = new THREE.Scene()
+
+		const material = new THREE.MeshBasicMaterial()
+		material.color = new THREE.Color(0xff0000)
+
+		const loader = new GLTFLoader()
+
+		loader.load('./cybertruck.glb', (gltf) => {
+			scene.add(gltf.scene)
+		})
+
+		const pointLight = new THREE.PointLight(0xffffff, 3)
+		pointLight.position.set(3, 3, 3)
+		scene.add(pointLight)
+
+		const sizes = {
+			width: window.innerWidth,
+			height: window.innerHeight,
+		}
+
+		window.addEventListener('resize', () => {
+			sizes.width = window.innerWidth
+			sizes.height = window.innerHeight
+
+			camera.aspect = sizes.width / sizes.height
+			camera.updateProjectionMatrix()
+
+			renderer.setSize(sizes.width, sizes.height)
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+		})
+
+		// Three js camera
 		const camera = new THREE.PerspectiveCamera(
 			75,
-			window.innerWidth / window.innerHeight,
+			sizes.width / sizes.height,
 			0.1,
-			1000
+			100
 		)
-		const renderer = new THREE.WebGLRenderer()
+		camera.position.set(2.5, 1.5, 1)
+		camera.rotation.set(-1, 45, 1)
+		scene.add(camera)
 
-		document.getElementById('scene')?.appendChild(renderer.domElement)
+		// Three js renderer
+		const renderer = new THREE.WebGLRenderer({
+			canvas: canvas as Element,
+			antialias: true,
+		})
+		renderer.setSize(sizes.width, sizes.height)
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-		renderer.setSize(window.innerWidth, window.innerHeight)
-
-		const geometry = new THREE.BoxGeometry(1, 1, 1)
-		const cube = new THREE.Mesh(geometry)
-
-		scene.add(cube)
-		camera.position.z = 5
-
-		const animate = function () {
-			requestAnimationFrame(animate)
-			cube.rotation.x += 0.01
-			cube.rotation.y += 0.01
+		const tick = () => {
 			renderer.render(scene, camera)
+
+			window.requestAnimationFrame(tick)
 		}
 
-		animate()
-
-		return () => {
-			document.getElementById('scene')?.removeChild(renderer.domElement)
-		}
+		tick()
 	}, [])
 
-	return <div id='scene' />
+	return <canvas id='webgl' />
 }
