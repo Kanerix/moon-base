@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
+
 import * as THREE from 'three'
+
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
 export default function Home() {
 	useEffect(() => {
@@ -11,15 +15,25 @@ export default function Home() {
 		const material = new THREE.MeshBasicMaterial()
 		material.color = new THREE.Color(0xff0000)
 
-		const loader = new GLTFLoader()
+		const dracoLoader = new DRACOLoader()
+		dracoLoader.setDecoderPath('js/libs/draco/gltf/')
 
+		const loader = new GLTFLoader()
 		loader.load('./cybertruck.glb', (gltf) => {
-			scene.add(gltf.scene)
+			const model = gltf.scene
+
+			model.position.set(1, 1, 0)
+
+			scene.add(model)
 		})
 
-		const pointLight = new THREE.PointLight(0xffffff, 3)
-		pointLight.position.set(3, 3, 3)
-		scene.add(pointLight)
+		const pointLight1 = new THREE.PointLight(0xffffff, 2)
+		pointLight1.position.set(-2, 10, -10)
+		scene.add(pointLight1)
+
+		const pointLight2 = new THREE.PointLight(0xffffff, 2)
+		pointLight2.position.set(-2, 10, 10)
+		scene.add(pointLight2)
 
 		const sizes = {
 			width: window.innerWidth,
@@ -44,8 +58,7 @@ export default function Home() {
 			0.1,
 			100
 		)
-		camera.position.set(2.5, 1.5, 1)
-		camera.rotation.set(-1, 45, 1)
+		camera.position.set(5, 2, 8)
 		scene.add(camera)
 
 		// Three js renderer
@@ -56,8 +69,12 @@ export default function Home() {
 		renderer.setSize(sizes.width, sizes.height)
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+		const controls = new OrbitControls(camera, renderer.domElement)
+
 		const tick = () => {
 			renderer.render(scene, camera)
+
+			controls.update()
 
 			window.requestAnimationFrame(tick)
 		}
