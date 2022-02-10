@@ -4,49 +4,55 @@ import * as THREE from 'three'
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
 export default function Home() {
 	useEffect(() => {
+		// Grap canvas element
 		const canvas = document.querySelector('canvas#webgl')
 
+		// Create scene object
 		const scene = new THREE.Scene()
 
-		const material = new THREE.MeshBasicMaterial()
-		material.color = new THREE.Color(0xff0000)
-
-		const dracoLoader = new DRACOLoader()
-		dracoLoader.setDecoderPath('js/libs/draco/gltf/')
-
+		// Create FLTG file loader
 		const loader = new GLTFLoader()
-		loader.load('./cybertruck.glb', (gltf) => {
+		// Load file from path
+		loader.load('./models/cybertruck.glb', (gltf) => {
 			const model = gltf.scene
 
-			model.position.set(1, 1, 0)
-
+			// Add loaded model to scene
 			scene.add(model)
 		})
 
-		const pointLight1 = new THREE.PointLight(0xffffff, 2)
-		pointLight1.position.set(-2, 10, -10)
+		// Add lights
+		const pointLight1 = new THREE.PointLight(0xffffff, 1)
+		pointLight1.position.set(-10, 3, -10)
 		scene.add(pointLight1)
 
-		const pointLight2 = new THREE.PointLight(0xffffff, 2)
-		pointLight2.position.set(-2, 10, 10)
+		const pointLight2 = new THREE.PointLight(0xffffff, 1)
+		pointLight2.position.set(-10, 3, 10)
 		scene.add(pointLight2)
 
+		const pointLight3 = new THREE.PointLight(0xffffff, 2)
+		pointLight3.position.set(10, 3, 0)
+		scene.add(pointLight3)
+
+		// Define sizes for window
 		const sizes = {
 			width: window.innerWidth,
 			height: window.innerHeight,
 		}
 
+		// Makes the window responsive
 		window.addEventListener('resize', () => {
+			// Set height and width to full
 			sizes.width = window.innerWidth
 			sizes.height = window.innerHeight
 
+			// Sets camera aspect ratio to its proper size
 			camera.aspect = sizes.width / sizes.height
 			camera.updateProjectionMatrix()
 
+			// Resizes the canvas element
 			renderer.setSize(sizes.width, sizes.height)
 			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 		})
@@ -69,8 +75,10 @@ export default function Home() {
 		renderer.setSize(sizes.width, sizes.height)
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+		// Add controls for the camera
 		const controls = new OrbitControls(camera, renderer.domElement)
 
+		// Function called each tick
 		const tick = () => {
 			renderer.render(scene, camera)
 
