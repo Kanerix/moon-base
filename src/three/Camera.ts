@@ -3,14 +3,14 @@ import * as THREE from 'three'
 export default class Camera {
 	camera: THREE.PerspectiveCamera
 
-	constructor() {
-		const aspectRatio = window.innerWidth / window.innerHeight
+	constructor(width: number, height: number) {
+		const aspectRatio = width / height
 		this.camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 100)
-		this.camera.position.set(0, 0, 3)
+		this.camera.position.set(0, 0, 2.8)
 	}
 
-	public resize() {
-		const aspectRatio = window.innerWidth / window.innerHeight
+	public resize(width: number, height: number) {
+		const aspectRatio = width / height
 		this.camera.aspect = aspectRatio
 		this.camera.updateProjectionMatrix()
 	}

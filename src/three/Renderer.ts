@@ -11,12 +11,11 @@ export default class Renderer {
 	}
 
 	public init() {
-		this.renderer.setClearColor(0x0f0f0f)
-		this.renderer.setSize(window.innerWidth, window.innerHeight)
+		this.renderer.setClearColor(0xe2e8f0)
 	}
 
-	public resize() {
-		this.renderer.setSize(window.innerWidth, window.innerHeight)
+	public resize(width: number, height: number) {
+		this.renderer.setSize(width, height)
 	}
 
 	public render(scene: THREE.Scene, camera: THREE.Camera) {

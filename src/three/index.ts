@@ -6,12 +6,22 @@ import Renderer from './Renderer'
 import Car from './world/Car'
 import Sun from './world/Sun'
 
-export default () => {
-	const canvas = document.querySelector('canvas#webgl')
+export default (canvas: HTMLCanvasElement) => {
+	const parent = canvas.parentElement
+
+	let { width, height } = { width: 0, height: 0 }
+
+	if (parent) {
+		width = parent.getBoundingClientRect().width
+		height = parent.getBoundingClientRect().height
+	}
+
+	canvas.width = width
+	canvas.height = height
 
 	const scene = new THREE.Scene()
 
-	const camera = new Camera()
+	const camera = new Camera(width, height)
 
 	const sun = new Sun()
 	sun.init(scene)
@@ -19,14 +29,24 @@ export default () => {
 	const car = new Car()
 	car.init(scene)
 
-	const renderer = new Renderer(canvas || undefined)
+	const renderer = new Renderer(canvas)
 	renderer.init()
+	renderer.resize(canvas.width, canvas.height)
 
 	new Controls(camera.camera, renderer.renderer)
 
 	window.addEventListener('resize', () => {
-		camera.resize()
-		renderer.resize()
+		const parent = canvas.parentElement
+
+		let { width, height } = { width: 0, height: 0 }
+
+		if (parent) {
+			width = parent.getBoundingClientRect().width
+			height = parent.getBoundingClientRect().height
+		}
+
+		camera.resize(width, height)
+		renderer.resize(width, height)
 	})
 
 	const render = () => {

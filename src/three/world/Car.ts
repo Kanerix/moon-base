@@ -11,6 +11,7 @@ export default class Car {
 	public init(scene: THREE.Scene) {
 		this.loader.load('models/cybertruck.glb', (gltf) => {
 			const model = gltf.scene
+			model.position.set(0, -0.5, 0)
 			scene.add(model)
 		})
 	}
