@@ -12,13 +12,11 @@ export default function Home() {
 	}, [])
 
 	return (
-		<div className='mx-auto w-full sm:w-2/3'>
+		<div className='mx-auto w-3/4 lg:w-2/3'>
 			<div className='flex flex-col'>
-				<div className='mx-auto w-2/3'>
+				<div className='mx-auto w-full md:w-2/3'>
 					<div className='flex justify-center'>
-						<div className='text-6xl my-10'>
-							Transport på månen?
-						</div>
+						<div className='text-6xl my-10'>Transport på månen</div>
 					</div>
 					<div className='font-medium text-3xl'>Hvorfor?</div>
 					<div className='mb-4'>
