@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Home from './pages/Home'
+import Model from './pages/Model'
 import PageNotFound from './pages/PageNotFound'
 
 export default function App() {
@@ -9,6 +10,7 @@ export default function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Home />} />
+					<Route path='/model' element={<Model />} />
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 			</BrowserRouter>

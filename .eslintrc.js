@@ -26,7 +26,8 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		'indent': [
 			'error',
-			'tab'
+			'tab',
+			{'SwitchCase': 1}
 		],
 		'linebreak-style': [
 			'error',
