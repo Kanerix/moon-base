@@ -1,7 +1,7 @@
 export default function Topnav() {
 	return (
-		<div className='px-10 py-4 bg-slate-800'>
-			<div className='flex items-center'>
+		<div className='px-10 py-4 bg-slate-800 fixed w-full h-20'>
+			<div className='flex items-center h-full'>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
 					className='h-12 w-12 text-purple-700'

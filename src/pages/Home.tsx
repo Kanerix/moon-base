@@ -12,7 +12,7 @@ export default function Home() {
 	}, [])
 
 	return (
-		<div className='mx-auto w-3/4 lg:w-2/3'>
+		<div className='mx-auto w-11/12 lg:w-2/3'>
 			<div className='flex flex-col'>
 				<div className='mx-auto w-full md:w-2/3'>
 					<div className='flex justify-center'>
