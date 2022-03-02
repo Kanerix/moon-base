@@ -1,16 +1,6 @@
-import { useEffect, useRef } from 'react'
-
-import three from '../three/index'
+import Model from '../components/Model'
 
 export default function Home() {
-	const canvas = useRef<HTMLCanvasElement | null>(null)
-
-	useEffect(() => {
-		if (canvas.current) {
-			three(canvas.current)
-		}
-	}, [])
-
 	return (
 		<div className='mx-auto w-11/12 lg:w-2/3'>
 			<div className='flex flex-col'>
@@ -43,7 +33,7 @@ export default function Home() {
 						og man kan zoome ind og ud så man kan se alle detaljerne
 					</div>
 					<div className='w-full h-96'>
-						<canvas ref={canvas} className='rounded-lg' />
+						<Model />
 					</div>
 				</div>
 			</div>
