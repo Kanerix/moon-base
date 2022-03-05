@@ -1,14 +1,26 @@
-import { Suspense } from 'react'
+import { Suspense, useRef } from 'react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Canvas, useLoader } from '@react-three/fiber'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 function Cybertruck() {
+	const ref = useRef<THREE.Mesh | null>(null)
 	const gltf = useLoader(GLTFLoader, '/models/cybertruck.gltf')
+
+	useFrame(() => {
+		if (ref.current) {
+			ref.current.rotation.y += 0.0025
+		}
+	})
 
 	return (
 		<Suspense fallback={null}>
-			<primitive scale={2} object={gltf.scene} />
+			<primitive
+				ref={ref}
+				scale={2}
+				position={[0, -1, 0]}
+				object={gltf.scene}
+			/>
 		</Suspense>
 	)
 }
@@ -17,8 +29,7 @@ export default function Model() {
 	return (
 		<Canvas>
 			<Suspense fallback={null}>
-				<ambientLight intensity={0.2} />
-				<pointLight position={[0, 10, 0]} intensity={0.1} />
+				<ambientLight intensity={0.3} />
 				<Cybertruck />
 				<OrbitControls
 					enablePan={false}
