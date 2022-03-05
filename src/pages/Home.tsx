@@ -97,7 +97,7 @@ export default function Home() {
 						Nu har vi altså vores bil og vi kan derfor give et skud
 						på hvordan den kommer til at se ud. 3D-modellen under er
 						en altså et markup af hvordan et køretøj på månen kommer
-						til at se ud. Modellen kan roteres medmussen og ses fra
+						til at se ud. Modellen kan roteres med mussen og ses fra
 						alle vinkler.
 					</div>
 					<div className='mb-12 w-full h-96'>
